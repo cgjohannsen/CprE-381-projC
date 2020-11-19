@@ -13,7 +13,6 @@ component IF_ID
     port (i_CLK, stall, flush : in std_logic;
           instr, pcPlus4 : in std_logic_vector(31 downto 0);
           instr_o, pcPlus4_o : out std_logic_vector(31 downto 0));
-
 end component;
 
 component ID_EX is 
@@ -26,18 +25,33 @@ component ID_EX is
 end component;
 
 signal sCLK, sStall, sFlush : std_logic;
+
+-- IF-ID
 signal sInstr, sPC, sInstr_o, sPC_o : std_logic_vector(31 downto 0);
+
+-- ID-EX
+signal sALUSrc, sALUOp, sMemToReg, sMemWrite, sRegWrite, sRegDst, sShift, sLoadUpper, sSignExt, sBranchEq, sBranchNeq, sJump, sJumpReg, sJAL : std_logic;
+signal s_rData1, s_rData2, s_imm, s_pcPlus4 : std_logic_vector(31 downto 0);
+signal sALUSrc_o, sALUOp_o, sMemToReg_o, sMemWrite_o, sRegWrite_o, sRegDst_o, sShift_o, sLoadUpper_o, sSignExt_o, sBranchEq_o, sBranchNeq_o, sJump_o, sJumpReg_o, sJAL_o : std_logic;
+signal s_rData1_o, s_rData2_o, s_imm_o, s_pcPlus4_o : std_logic_vector(31 downto 0);
 
 begin 
 
-DUT: IF_ID
+DUT0: IF_ID
 port map(sCLK, sStall, sFlush, sInstr, sPC, sInstr_o, sPC_o);
+
+DUT1: ID_EX
+port map(sCLK, sStall, sFlush, 
+         sALUSrc, sALUOp, sMemToReg, sMemWrite, sRegWrite, sRegDst, sShift, sLoadUpper, sSignExt, sBranchEq, sBranchNeq, sJump, sJumpReg, sJAL,
+         s_rData1, s_rData2, s_imm, s_pcPlus4,
+         sALUSrc_o, sALUOp_o, sMemToReg_o, sMemWrite_o, sRegWrite_o, sRegDst_o, sShift_o, sLoadUpper_o, sSignExt_o, sBranchEq_o, sBranchNeq_o, sJump_o, sJumpReg_o, sJAL_o,
+         s_rData1_o, s_rData2_o, s_imm_o, s_pcPlus4_o);
 
 P_CLK: process
   begin
-    sCLK <= '1';
-    wait for gCLK_HPER;
     sCLK <= '0';
+    wait for gCLK_HPER;
+    sCLK <= '1';
     wait for gCLK_HPER;
 end process;
 
@@ -47,8 +61,29 @@ test: process
         -- test values
         sStall <= '0';
         sFlush <= '0';
+
         sInstr <= x"FFFFFFFF";
         sPC <= x"11111111";
+
+        sALUSrc <= '1';
+        sALUOp <= '1'; 
+        sMemToReg <= '1';
+        sMemWrite <= '1';
+        sRegWrite <= '1';
+        sRegDst <= '1';
+        sShift <= '1';
+        sLoadUpper <= '1';
+        sSignExt <= '1';
+        sBranchEq <= '1';
+        sBranchNeq <= '1';
+        sJump <= '1';
+        sJumpReg <= '1';
+        sJAL <= '1';
+        s_rData1 <= x"FFFFFFFF";
+        s_rData2 <= x"FFFFFFFF";
+        s_imm <= x"FFFFFFFF";
+        s_pcPlus4 <= x"FFFFFFFF";
+
         wait for cCLK_PER;
 
         wait;
