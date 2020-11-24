@@ -7,7 +7,6 @@ entity MEM_WB is
           RegWrData, NextInstrAddr : in std_logic_vector(31 downto 0);
           MemToReg_o, RegWrite_o : out std_logic;
           RegWrData_o, NextInstrAddr_o : out std_logic_vector(31 downto 0));
-
 end MEM_WB;
 
 architecture struct of MEM_WB is

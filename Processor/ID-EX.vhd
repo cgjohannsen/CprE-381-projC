@@ -7,7 +7,6 @@ entity ID_EX is
           rData1, rData2, imm, pcPlus4 : in std_logic_vector(31 downto 0);
           ALUSrc_o, ALUOp_o, MemToReg_o, MemWrite_o, RegWrite_o, RegDst_o, Shift_o, LoadUpper_o, SignExt_o, BranchEq_o, BranchNeq_o, Jump_o, JumpReg_o, JAL_o : out std_logic;
           rData1_o, rData2_o, imm_o, pcPlus4_o : out std_logic_vector(31 downto 0));
-
 end ID_EX;
 
 architecture struct of ID_EX is
@@ -29,8 +28,6 @@ component ndff_1bit is
          o_Q          : out std_logic);  -- Data value output
 end component;
 
-signal sALUSrc, sALUOp, sMemToReg, sMemWrite, sRegWrite, sRegDst, sShift, sLoadUpper, sSignExt, sBranchEq, sBranchNeq, sJump, sJumpReg, sJAL : std_logic;
-signal s_rData1, s_rData2, s_imm, s_pcPlus4 : std_logic_vector(31 downto 0);
 signal notStall : std_logic;
 
 begin
@@ -38,76 +35,57 @@ begin
     notStall <= not stall;
 
     reg0: ndff_1bit
-    port map(i_CLK, flush, notStall, ALUSrc, sALUSrc);
+    port map(i_CLK, flush, notStall, ALUSrc, ALUSrc_o);
 
     reg1: ndff_1bit
-    port map(i_CLK, flush, notStall, ALUOp, sAlUOp);
+    port map(i_CLK, flush, notStall, ALUOp, ALUOp_o);
 
     reg2: ndff_1bit
-    port map(i_CLK, flush, notStall, MemToReg, sMemToReg);
+    port map(i_CLK, flush, notStall, MemToReg, MemToReg_o);
 
     reg3: ndff_1bit
-    port map(i_CLK, flush, notStall, MemWrite, sMemWrite);
+    port map(i_CLK, flush, notStall, MemWrite, MemWrite_o);
 
     reg4: ndff_1bit
-    port map(i_CLK, flush, notStall, RegWrite, sRegWrite);
+    port map(i_CLK, flush, notStall, RegWrite, RegWrite_o);
 
     reg5: ndff_1bit
-    port map(i_CLK, flush, notStall, RegDst, sRegDst);
+    port map(i_CLK, flush, notStall, RegDst, RegDst_o);
 
     reg6: ndff_1bit
-    port map(i_CLK, flush, notStall, Shift, sShift);
+    port map(i_CLK, flush, notStall, Shift, Shift_o);
 
     reg7: ndff_1bit
-    port map(i_CLK, flush, notStall, LoadUpper, sLoadUpper);
+    port map(i_CLK, flush, notStall, LoadUpper, LoadUpper_o);
 
     reg8: ndff_1bit
-    port map(i_CLK, flush, notStall, SignExt, sSignExt);
+    port map(i_CLK, flush, notStall, SignExt, SignExt_o);
 
     reg9: ndff_1bit
-    port map(i_CLK, flush, notStall, BranchEq, sBranchEq);
+    port map(i_CLK, flush, notStall, BranchEq, BranchEq_o);
 
     reg10: ndff_1bit
-    port map(i_CLK, flush, notStall, BranchNeq, sBranchNeq);
+    port map(i_CLK, flush, notStall, BranchNeq, BranchNeq_o);
 
     reg11: ndff_1bit
-    port map(i_CLK, flush, notStall, Jump, sJump);
+    port map(i_CLK, flush, notStall, Jump, Jump_o);
 
     reg12: ndff_1bit
-    port map(i_CLK, flush, notStall, JumpReg, sJumpReg);
+    port map(i_CLK, flush, notStall, JumpReg, JumpReg_o);
 
     reg13: ndff_1bit
-    port map(i_CLK, flush, notStall, JAL, sJAL);
+    port map(i_CLK, flush, notStall, JAL, JAL_o);
 
     reg14: ndff
-    port map(i_CLK, flush, notStall, rData1, s_rData1);
+    port map(i_CLK, flush, notStall, rData1, rData1_o);
 
     reg15: ndff
-    port map(i_CLK, flush, notStall, rData2, s_rData2);
+    port map(i_CLK, flush, notStall, rData2, rData2_o);
 
     reg16: ndff
-    port map(i_CLK, flush, notStall, imm, s_imm);
+    port map(i_CLK, flush, notStall, imm, imm_o);
 
     reg17: ndff
-    port map(i_CLK, flush, notStall, pcPlus4, s_pcPlus4);
-
-ALUSrc_o <= sALUSrc;
-ALUOp_o <= sALUOp;
-MemToReg_o <= sMemToReg;
-MemWrite_o <= sMemWrite;
-RegWrite_o <= sRegWrite;
-RegDst_o <= sRegDst;
-Shift_o <= sShift;
-LoadUpper_o <= sLoadUpper;
-SignExt_o <= sSignExt;
-BranchEq_o <= sBranchEq;
-BranchNeq_o <= sBranchNeq;
-Jump_o <= sJump;
-JumpReg_o <= sJumpReg;
-JAL_o <= sJAL;
-rData1_o <= s_rData1;
-rData2_o <= s_rData2;
-imm_o <= s_imm;
-pcPlus4_o <= s_pcPlus4;
+    port map(i_CLK, flush, notStall, pcPlus4, pcPlus4_o);
 
 end struct;

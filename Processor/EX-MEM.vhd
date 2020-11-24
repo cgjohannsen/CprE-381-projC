@@ -7,7 +7,6 @@ entity EX_MEM is
           dALU, bALU, jumpAddr, pcPlus4 : in std_logic_vector(31 downto 0);
           MemToReg_o, MemWrite_o, RegWrite_o, BranchEq_o, BranchNeq_o, Jump_o, JumpReg_o, JAL_o : out std_logic;
           dALU_o, bALU_o, jumpAddr_o, pcPlus4_o : out std_logic_vector(31 downto 0));
-
 end EX_MEM;
 
 architecture struct of EX_MEM is
