@@ -291,7 +291,7 @@ begin
   -- TODO: Implement the rest of your processor below this comment! 
 
   oALUOut    <= s_ALUOutEX;
-  s_DMemAddr <= s_ALUOutEX;
+  s_DMemAddr <= s_ALUOutMEM;
   s_DMemData <= s_ReadData2MEM;
   s_DMemWr   <= s_DMemWrMEM;
   s_RegWr    <= s_RegWrWB;
@@ -485,7 +485,7 @@ begin
              LoadUpper   => s_LoadUpperID,
              JAL         => s_JumpAndLinkID, 
              rt          => s_InstID(20 downto 16), 
-             rd          => s_InstID(20 downto 16),
+             rd          => s_InstID(15 downto 11),
              rData1      => s_ReadData1ID,
              rData2      => s_ReadData2ID, 
              imm         => s_ImmID, 
