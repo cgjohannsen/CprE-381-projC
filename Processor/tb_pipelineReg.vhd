@@ -106,32 +106,68 @@ test: process
         sInstr <= x"00000000";
         s_pcPlus4 <= x"00000001";
 
-        sALUSrc <= '1';
-        sALUOp <= '1'; 
-        sMemToReg <= '1';
-        sMemWrite <= '1';
-        sRegWrite <= '1';
-        sRegDst <= '1';
-        sShift <= '1';
-        sLoadUpper <= '1';
-        sSignExt <= '1';
-        sBranchEq <= '1';
-        sBranchNeq <= '1';
-        sJump <= '1';
-        sJumpReg <= '1';
-        sJAL <= '1';
-        s_rData1 <= x"11111111";
-        s_rData2 <= x"22222222";
-        s_imm <= x"33333333";
+        wait for cCLK_PER;
 
-        s_dALU <= x"44444444";
-        s_bALU <= x"55555555";
-        s_jumpAddr <= x"10000000";
-
-        sRegWrData <= x"66666666";
-        sNextInstrAddr <= x"00000002";
+        sInstr <= x"00000001";
+        s_pcPlus4 <= x"00000002";
 
         wait for cCLK_PER;
+
+        sInstr <= x"00000002";
+        s_pcPlus4 <= x"00000003";
+
+        wait for cCLK_PER;
+
+        sInstr <= x"00000003";
+        s_pcPlus4 <= x"00000004";
+
+--        sALUSrc <= '1';
+--        sALUOp <= '1'; 
+--        sMemToReg <= '1';
+--        sMemWrite <= '1';
+--        sRegWrite <= '1';
+--        sRegDst <= '1';
+--        sShift <= '1';
+--        sLoadUpper <= '1';
+--        sSignExt <= '1';
+--        sBranchEq <= '1';
+--        sBranchNeq <= '1';
+--        sJump <= '1';
+--        sJumpReg <= '1';
+--        sJAL <= '1';
+--        s_rData1 <= x"11111111";
+--        s_rData2 <= x"22222222";
+--        s_imm <= x"33333333";
+--
+--        s_dALU <= x"44444444";
+--        s_bALU <= x"55555555";
+--        s_jumpAddr <= x"10000000";
+--
+--        sRegWrData <= x"66666666";
+--        sNextInstrAddr <= x"00000002";
+--
+--        --wait 4 clock cycles
+--
+--        wait for cCLK_PER;
+--        wait for cCLK_PER;
+--        wait for cCLK_PER;
+--        wait for cCLK_PER;
+--
+--        --stall
+--        sStall <= '1';
+--
+--        sInstr <= x"F0000000";
+--        s_pcPlus4 <= x"F0000001";
+--
+--        wait for cCLK_PER;
+--
+--        --flush
+--        sStall <= '0';
+--        sFlush <= '1';
+--
+--        wait for cCLK_PER;
+--
+--        sFlush <= '0';
 
         wait;
         
